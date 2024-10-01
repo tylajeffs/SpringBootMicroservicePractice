@@ -39,7 +39,7 @@ public class TourService {
         TourPackage tourPackage = tourPackageRepository.findByName(tourPackageName)
                 .orElseThrow(() -> new RuntimeException("Tour package does not exist" + tourPackageName));
 
-        return tourRepository.save(new Tour(title,description,blurb,price,duration,bullets,keywords,tourPackage,region,difficulty));
+        return tourRepository.save(new Tour(title,description,blurb,price,duration,bullets,keywords,tourPackage, difficulty, region));
     }
 
     /**

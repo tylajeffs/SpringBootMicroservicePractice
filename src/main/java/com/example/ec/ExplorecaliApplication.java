@@ -13,7 +13,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import static com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility.ANY;
 import static com.fasterxml.jackson.annotation.PropertyAccessor.FIELD;
-
 import java.io.FileInputStream;
 import java.io.IOError;
 import java.io.IOException;
@@ -22,7 +21,7 @@ import java.util.List;
 @SpringBootApplication
 public class ExplorecaliApplication implements CommandLineRunner {
 
-	@Value("${ec.importfile}")
+	@Value("ExploreCalifornia.json")
 	private String importFile;
 	@Autowired
 	private TourPackageService tourPackageService;
@@ -37,24 +36,20 @@ public class ExplorecaliApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-		//create the tour packages
-		createTourPackages();
-		long numOfPackages = tourPackageService.total();
-
-		//load the tours from an external json file
-		createTours("ExploreCalifornia.json");
-		long numOfTours = tourService.total();
+		createTourAllPackages();
+		createTours(importFile);
 	}
 
 	/**
 	 * initialize all known tour packages
 	 */
-	private void createTourPackages() {
+	private void createTourAllPackages() {
 		tourPackageService.createTourPackage("BC","Backpack Cal");
 		tourPackageService.createTourPackage("CC","California Calm");
 		tourPackageService.createTourPackage("CH","California Hot Springs");
 		tourPackageService.createTourPackage("CY","Cycle California");
 		tourPackageService.createTourPackage("DS","From Desert to Sea");
+		tourPackageService.createTourPackage("CH", "California Hot springs");
 		tourPackageService.createTourPackage("KC","Kids California");
 		tourPackageService.createTourPackage("NW","Nature Watch");
 		tourPackageService.createTourPackage("SC","Snowboard Cali");
